@@ -2,7 +2,7 @@
 class DB {
     private $connection;
 
-    public function __construct($host, $username, $password, $database) {
+    public function __construct($host = 'localhost', $username = 'alpha', $password = 'mwas', $database = '1br') {
         $this->connection = mysql_connect($host, $username, $password);
         if (!$this->connection) {
             die('Could not connect: ' . mysql_error());
