@@ -40,7 +40,7 @@ $obj = (object)$_POST;
                     <select name="selected_phase" id="selected_phase">
                         <option selected disabled>Choose a Phase</option>
                         <?php
-                            $query = "SELECT DISTINCT phase from products";
+                            $query = "SELECT DISTINCT phase from products ORDER BY phase ASC";
                             $stmt = $connection->query($query);
                             $results = $stmt->fetchAll(PDO::FETCH_OBJ);
                             foreach($results as $row){
@@ -58,7 +58,7 @@ $obj = (object)$_POST;
                     <select name="selected_priority" id="selected_priority">
                         <option selected disabled>Choose a Priority</option>
                         <?php
-                            $query1 = "SELECT DISTINCT priority from products";
+                            $query1 = "SELECT DISTINCT priority from products ORDER BY priority ASC";
                             $stmt1 = $connection->query($query1);
                             $results1 = $stmt1->fetchAll(PDO::FETCH_OBJ);
                             foreach($results1 as $row1){
@@ -75,7 +75,10 @@ $obj = (object)$_POST;
                 <div class="tb_item">
                     <input type="submit" value="Filter" name="action" class="btn btn-dark">
                 </div>
-
+                            
+                <div class="tb_item">
+                    <div onclick=" window.location.href='index.php' " class="btn btn-danger" >Clear Filters</div>
+                </div>
                 
             </div>
         </form>
@@ -152,7 +155,7 @@ $obj = (object)$_POST;
                                     <td>$row->room</td>
                                     <td>".$row->phase."</td>
                                     <td>".$row->priority."</td>
-                                    <td><B>$row->total</B></td>
+                                    <td><B>".number_format($row->total)."</B></td>
                                 </tr>";
                             $i++;
                             $total += $row->total;
@@ -173,7 +176,7 @@ $obj = (object)$_POST;
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th><?php echo $total;?></th>
+                        <th><?php echo number_format($total);?></th>
                     </tr>
                 </tfoot>
             </table>
