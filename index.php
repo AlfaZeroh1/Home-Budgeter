@@ -20,6 +20,8 @@ include "php/DB.php";
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <!--  End of Data tables-->
+
+    <link rel="stylesheet" href="css/style.css">
     
 </head>
 <body>
@@ -77,13 +79,30 @@ include "php/DB.php";
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <div class="ipt"></div>
-                        <div class="ipt"></div>
-                        <div class="ipt"></div>
-                        <div class="ipt"></div>
-                        <div class="ipt"></div>
-                        <div class="ipt"></div>
-                        <div class="ipt"></div>
+                        <div class="ipt">
+                            <input type="text" placeholder="name" class="form-control" name="name" id="name">
+                        </div>
+                        <div class="ipt">
+                        <input type="text" placeholder="type" class="form-control" name="type" id="type">
+                        </div>
+                        <div class="ipt">
+                            <input type="text" placeholder="quantity" class="form-control" name="quantity" id="quantity">
+                        </div>
+                        <div class="ipt">
+                            <input type="text" placeholder="unit_price" class="form-control" name="unit_price" id="unit_price">
+                        </div>
+                        <div class="ipt">
+                            <input type="text" placeholder="room" class="form-control" name="room" id="room">
+                        </div>
+                        <div class="ipt">
+                            <input type="text" placeholder="priority, 0 being highest" class="form-control" name="priority" id="priority">
+                        </div>
+                        <div class="ipt">
+                            <input type="text" placeholder="phase" class="form-control" name="phase" id="phase">
+                        </div>
+                        <div class="ipt">
+                            <input type="submit" value="add product" class="btn btn-dark">
+                        </div>
                     </div>
 
                     <!-- Modal footer -->
