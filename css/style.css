@@ -4,3 +4,10 @@
 #main_table{
     margin: 10px;
 }
+.topbar{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+    padding:10px;
+    border-bottom: 1px double #000;
+}

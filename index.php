@@ -28,15 +28,53 @@ include "php/DB.php";
 <body>
     <h1>Products</h1>
     <div class="cont">
-        <div class="topbar">
-            <div class="tb_item">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addprod">Add Product</button>
-            </div>
+        <form action="" method="post">
+            <div class="topbar">
+                <div class="tb_item">
+                    <div class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addprod">Add Product</div>
+                </div>
 
-            <div class="tb_item">
-                <!-- <button class="btn btn-success"></button> -->
+                <div class="tb_item">
+                    <select name="selected_phase" id="selected_phase">
+                        <option selected disabled>Choose a Phase</option>
+                        <?php
+                            $query = "SELECT DISTINCT phase from products";
+                            $stmt = $connection->query($query);
+                            $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+                            foreach($results as $row){
+                                echo 
+                                " 
+                                    <option value='$row->phase'>$row->phase</option>
+                                ";
+                            }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="tb_item">
+                    <select name="selected_priority" id="selected_priority">
+                        <option selected disabled>Choose a Priority</option>
+                        <?php
+                            $query1 = "SELECT DISTINCT priority from products";
+                            $stmt1 = $connection->query($query1);
+                            $results1 = $stmt1->fetchAll(PDO::FETCH_OBJ);
+                            foreach($results1 as $row1){
+                                echo 
+                                " 
+                                    <option value='$row1->priority'>$row1->priority</option>
+                                ";
+                            }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="tb_item">
+                    <input type="submit" value="Filter" name="action" class="btn btn-dark">
+                </div>
+
+                
             </div>
-        </div>
+        </form>
 
         <div class="divtable">
             <table class="table table-bordered" id="main_table">
@@ -56,6 +94,7 @@ include "php/DB.php";
 
                 <tbody>
                     <?php
+                        $total = 0;
                         function convert_phase($phase){
                             if($phase == 1){ return 'One';}
                             if($phase == 2){ return 'Two';}
@@ -85,7 +124,21 @@ include "php/DB.php";
                             if($priority == 12){ return 'Arteta';}
                         }
                         // Get all products
-                        $query = "SELECT name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products";
+                        $where= '';
+                        $obj = (object)$_POST;
+                        if(isset($obj->action) && $obj->action="Filter"){
+                            $where = ' where 1=1 ';
+                            if(isset($obj->selected_phase)){ $where += " AND phase = '$obj->selected_phase' ";}
+                            if(isset($obj->selected_priority)){ $where += " AND priority = '$obj->selected_priority' ";}
+                        }
+                        $query = "SELECT name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products $where";
+                        echo 
+                        "   
+                            <tr>
+                                <td colspan='9'>$query</td>
+                            </tr>
+                        ";
+
                         $stmt = $connection->query($query);
                         $results = $stmt->fetchAll(PDO::FETCH_OBJ);
                         // results is an associative array so to read data inside it,
@@ -105,12 +158,26 @@ include "php/DB.php";
                                     <td><B>$row->total</B></td>
                                 </tr>";
                             $i++;
+                            $total += $row->total;
                         }
                     ?>
+
+                    
                 </tbody>
 
                 <tfoot>
-
+                    <!-- tTotal Column -->
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th><?php echo $total;?></th>
+                    </tr>
                 </tfoot>
             </table>
         </div>
