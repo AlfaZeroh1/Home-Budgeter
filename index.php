@@ -1,5 +1,7 @@
 <?php
 include "php/DB.php";
+$obj = (object)$_POST;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +44,10 @@ include "php/DB.php";
                             $stmt = $connection->query($query);
                             $results = $stmt->fetchAll(PDO::FETCH_OBJ);
                             foreach($results as $row){
+                                $selected = $row->phase == $obj->selected_phase?'selected':'';
                                 echo 
                                 " 
-                                    <option value='$row->phase'>$row->phase</option>
+                                    <option $selected value='$row->phase'>$row->phase</option>
                                 ";
                             }
                         ?>
@@ -59,9 +62,10 @@ include "php/DB.php";
                             $stmt1 = $connection->query($query1);
                             $results1 = $stmt1->fetchAll(PDO::FETCH_OBJ);
                             foreach($results1 as $row1){
+                                $selected = $row1->priority == $obj->selected_priority?'selected':'';
                                 echo 
                                 " 
-                                    <option value='$row1->priority'>$row1->priority</option>
+                                    <option $selected value='$row1->priority'>$row1->priority</option>
                                 ";
                             }
                         ?>
@@ -125,19 +129,12 @@ include "php/DB.php";
                         }
                         // Get all products
                         $where= '';
-                        $obj = (object)$_POST;
                         if(isset($obj->action) && $obj->action="Filter"){
                             $where = ' where 1=1 ';
-                            if(isset($obj->selected_phase)){ $where += " AND phase = '$obj->selected_phase' ";}
-                            if(isset($obj->selected_priority)){ $where += " AND priority = '$obj->selected_priority' ";}
+                            if(isset($obj->selected_phase)){ $where .= " AND phase = '$obj->selected_phase' ";}
+                            if(isset($obj->selected_priority)){ $where .= " AND priority = '$obj->selected_priority' ";}
                         }
                         $query = "SELECT name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products $where";
-                        echo 
-                        "   
-                            <tr>
-                                <td colspan='9'>$query</td>
-                            </tr>
-                        ";
 
                         $stmt = $connection->query($query);
                         $results = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -153,8 +150,8 @@ include "php/DB.php";
                                     <td>$row->unit_price</td>
                                     <td>$row->type</td>
                                     <td>$row->room</td>
-                                    <td>".convert_phase($row->phase)."</td>
-                                    <td>".convert_priority($row->priority)."</td>
+                                    <td>".$row->phase."</td>
+                                    <td>".$row->priority."</td>
                                     <td><B>$row->total</B></td>
                                 </tr>";
                             $i++;
