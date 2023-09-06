@@ -22,6 +22,7 @@ include "php/DB.php";
     <!--  End of Data tables-->
 
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
     
 </head>
 <body>
@@ -55,6 +56,34 @@ include "php/DB.php";
 
                 <tbody>
                     <?php
+                        function convert_phase($phase){
+                            if($phase == 1){ return 'One';}
+                            if($phase == 2){ return 'Two';}
+                            if($phase == 3){ return 'Three';}
+                            if($phase == 4){ return 'Four';}
+                            if($phase == 5){ return 'Five';}
+                            if($phase == 6){ return 'Six';}
+                            if($phase == 7){ return 'Seven';}
+                            if($phase == 8){ return 'Eight';}
+                            if($phase == 9){ return 'Nine';}
+                            if($phase == 10){ return 'Ten';}
+                            if($phase == 11){ return 'Eleven';}
+                            if($phase == 12){ return 'Twelve';}
+                        }
+                        function convert_priority($priority){
+                            if($priority == 1){ return 'Moja';}
+                            if($priority == 2){ return 'Mbili';}
+                            if($priority == 3){ return 'Tatu';}
+                            if($priority == 4){ return 'NNe';}
+                            if($priority == 5){ return 'Tano';}
+                            if($priority == 6){ return 'Sita';}
+                            if($priority == 7){ return 'Saba';}
+                            if($priority == 8){ return 'nane';}
+                            if($priority == 9){ return 'Tisa';}
+                            if($priority == 10){ return 'Kumi';}
+                            if($priority == 11){ return 'Maria';}
+                            if($priority == 12){ return 'Arteta';}
+                        }
                         // Get all products
                         $query = "SELECT name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products";
                         $stmt = $connection->query($query);
@@ -71,8 +100,8 @@ include "php/DB.php";
                                     <td>$row->unit_price</td>
                                     <td>$row->type</td>
                                     <td>$row->room</td>
-                                    <td>$row->phase</td>
-                                    <td>$row->priority</td>
+                                    <td>".convert_phase($row->phase)."</td>
+                                    <td>".convert_priority($row->priority)."</td>
                                     <td><B>$row->total</B></td>
                                 </tr>";
                             $i++;
