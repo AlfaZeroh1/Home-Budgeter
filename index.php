@@ -45,6 +45,7 @@ include "php/DB.php";
                         <th>Name</th>
                         <th>Quantity</th>
                         <th>Unit Price</th>
+                        <th>Type</th>
                         <th>Room</th>
                         <th>Phase</th>
                         <th>Priority</th>
@@ -53,7 +54,30 @@ include "php/DB.php";
                 </thead>
 
                 <tbody>
-
+                    <?php
+                        // Get all products
+                        $query = "SELECT name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products";
+                        $stmt = $connection->query($query);
+                        $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+                        // results is an associative array so to read data inside it,
+                        //  you can use a loop condition like so
+                        $i=1;
+                        foreach ($results as $row) {
+                            echo
+                                "<tr>
+                                    <td>$i</td>
+                                    <td>$row->name</td>
+                                    <td>$row->quantity</td>
+                                    <td>$row->unit_price</td>
+                                    <td>$row->type</td>
+                                    <td>$row->room</td>
+                                    <td>$row->phase</td>
+                                    <td>$row->priority</td>
+                                    <td><B>$row->total</B></td>
+                                </tr>";
+                            $i++;
+                        }
+                    ?>
                 </tbody>
 
                 <tfoot>
@@ -81,28 +105,31 @@ include "php/DB.php";
                     <div class="modal-body">
                         <form action="php/add_product.php" method="post">
                             <div class="ipt">
-                                <input type="text" placeholder="name" class="form-control" name="name" id="name">
+                                <input type="text" placeholder="name ... " class="form-control" name="name" id="name">
                             </div>
                             <div class="ipt">
-                            <input type="text" placeholder="type" class="form-control" name="type" id="type">
+                                <input type="text" placeholder="type ... " class="form-control" name="type" id="type">
                             </div>
                             <div class="ipt">
-                                <input type="text" placeholder="quantity" class="form-control" name="quantity" id="quantity">
+                                <input type="text" placeholder="quantity ... " class="form-control" name="quantity" id="quantity">
                             </div>
                             <div class="ipt">
-                                <input type="text" placeholder="unit_price" class="form-control" name="unit_price" id="unit_price">
+                                <input type="text" placeholder="unit_price ... " class="form-control" name="unit_price" id="unit_price">
                             </div>
                             <div class="ipt">
-                                <input type="text" placeholder="room" class="form-control" name="room" id="room">
+                                <input type="text" placeholder="room ... " class="form-control" name="room" id="room">
                             </div>
                             <div class="ipt">
-                                <input type="text" placeholder="priority, 0 being highest" class="form-control" name="priority" id="priority">
+                                <input type="text" placeholder="priority ... , 0 being highest" class="form-control" name="priority" id="priority">
                             </div>
                             <div class="ipt">
-                                <input type="text" placeholder="phase" class="form-control" name="phase" id="phase">
+                                <input type="text" placeholder="phase ... " class="form-control" name="phase" id="phase">
                             </div>
                             <div class="ipt">
-                                <input type="submit" value="add product" class="btn btn-dark">
+                                <textarea placeholder="remarks ... " class="form-control" name="remarks" id="remarks" rows="3"></textarea>
+                            </div>
+                            <div class="ipt">
+                                <input type="submit" name="action" value="add product" class="btn btn-dark">
                             </div>
                         </form>
                     </div>
