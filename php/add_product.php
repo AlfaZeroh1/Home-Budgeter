@@ -37,6 +37,9 @@ if(isset($obj->action) && $obj->action=="add product"){
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <div class="tb_item">
+        <div onclick=" window.location.href='../index.php' " class="btn btn-danger" >Home</div>
+    </div>
     <form action="" method="post">
         <div class="ipt">
             <input type="text" placeholder="name ... " class="form-control" name="name" id="name">

@@ -72,9 +72,30 @@ $obj = (object)$_POST;
                     </select>
                 </div>
 
+
+                <div class="tb_item">
+                    <select name="selected_type" id="selected_type">
+                        <option selected disabled>Choose a type</option>
+                        <?php
+                            $query = "SELECT DISTINCT type from products WHERE type is NOT NULL AND type!='' ORDER BY type ASC";
+                            $stmt = $connection->query($query);
+                            $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+                            foreach($results as $row){
+                                $selected = $row->type == $obj->selected_type?'selected':'';
+                                echo 
+                                " 
+                                    <option $selected value='$row->type'>$row->type</option>
+                                ";
+                            }
+                        ?>
+                    </select>
+                </div>
+
                 <div class="tb_item">
                     <input type="submit" value="Filter" name="action" class="btn btn-dark">
                 </div>
+
+
                             
                 <div class="tb_item">
                     <div onclick=" window.location.href='index.php' " class="btn btn-danger" >Clear Filters</div>
@@ -136,6 +157,7 @@ $obj = (object)$_POST;
                             $where = ' where 1=1 ';
                             if(isset($obj->selected_phase)){ $where .= " AND phase = '$obj->selected_phase' ";}
                             if(isset($obj->selected_priority)){ $where .= " AND priority = '$obj->selected_priority' ";}
+                            if(isset($obj->selected_type)){ $where .= " AND type = '$obj->selected_type' ";}
                         }
                         $query = "SELECT name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products $where";
 
