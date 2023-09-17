@@ -184,8 +184,8 @@ $obj = (object)$_POST;
                                     <td>".$row->phase."</td>
                                     <td>".$row->priority."</td>
                                     <td><B>".number_format($row->total)."</B></td>
-                                    <td><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
-                                    <td><a onclick='sure($row->id)'><img class='icn' src='images/delete.png'></a></td>
+                                    <td align='center' ><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
+                                    <td align='center' ><a onclick='sure($row->id)'><img class='icn' src='images/delete.png'></a></td>
                                 </tr>";
                             $i++;
                             $total += $row->total;
@@ -207,6 +207,8 @@ $obj = (object)$_POST;
                         <th></th>
                         <th></th>
                         <th><?php echo number_format($total);?></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>
