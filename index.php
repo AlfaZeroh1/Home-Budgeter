@@ -158,9 +158,8 @@ $obj = (object)$_POST;
                             if($priority == 12){ return 'Arteta';}
                         }
                         // Get all products
-                        $where= '';
+                        $where = ' where status=0 ';
                         if(isset($obj->action) && $obj->action="Filter"){
-                            $where = ' where 1=1 ';
                             if(isset($obj->selected_phase)){ $where .= " AND phase = '$obj->selected_phase' ";}
                             if(isset($obj->selected_priority)){ $where .= " AND priority = '$obj->selected_priority' ";}
                             if(isset($obj->selected_type)){ $where .= " AND type = '$obj->selected_type' ";}
@@ -275,7 +274,7 @@ $obj = (object)$_POST;
     <script>
         function sure(id){
             if(confirm('are you sure you want to delete this?')){
-                window.location.href='php/edit.php?id='+id;
+                window.location.href='php/delete.php?id='+id;
             }
         }
     </script>

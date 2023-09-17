@@ -76,7 +76,7 @@
                         foreach($types_results as $type){
                             $type_total=0;
                             // Get the sum of the type
-                            $type_total_query = "SELECT SUM(quantity*unit_price) total from products WHERE phase = '$phase->phase' AND type='$type->type' ";
+                            $type_total_query = "SELECT SUM(quantity*unit_price) total from products WHERE status='0' AND phase = '$phase->phase' AND type='$type->type' ";
                             $type_total_stmt = $connection->query($type_total_query);
                             $type_total_results = $type_total_stmt->fetchAll(PDO::FETCH_OBJ);
                             $type_total = $type_total_results[0]->total;
@@ -88,7 +88,7 @@
                             // Get the products
                             echo "<tr class='toggleable' >";
                                 echo "<td colspan='2' >";
-                                    $products_query = "SELECT name, quantity*unit_price as price from products WHERE phase = '$phase->phase' AND type='$type->type' ";
+                                    $products_query = "SELECT name, quantity*unit_price as price from products WHERE status='0' AND phase = '$phase->phase' AND type='$type->type' ";
                                     $products_stmt = $connection->query($products_query);
                                     $products_results = $products_stmt->fetchAll(PDO::FETCH_OBJ);
                                     foreach($products_results as $product){
