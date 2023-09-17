@@ -121,6 +121,8 @@ $obj = (object)$_POST;
                         <th>Phase</th>
                         <th>Priority</th>
                         <th>Ttl Price</th>
+                        <th>Action</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
@@ -163,7 +165,7 @@ $obj = (object)$_POST;
                             if(isset($obj->selected_priority)){ $where .= " AND priority = '$obj->selected_priority' ";}
                             if(isset($obj->selected_type)){ $where .= " AND type = '$obj->selected_type' ";}
                         }
-                        $query = "SELECT name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products $where";
+                        $query = "SELECT id,name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products $where";
 
                         $stmt = $connection->query($query);
                         $results = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -182,6 +184,8 @@ $obj = (object)$_POST;
                                     <td>".$row->phase."</td>
                                     <td>".$row->priority."</td>
                                     <td><B>".number_format($row->total)."</B></td>
+                                    <td><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
+                                    <td><a onclick='sure($row->id)'><img class='icn' src='images/delete.png'></a></td>
                                 </tr>";
                             $i++;
                             $total += $row->total;
@@ -266,5 +270,12 @@ $obj = (object)$_POST;
         </div>
     <!-- END of Add Product Modal -->
 
+    <script>
+        function sure(id){
+            if(confirm('are you sure you want to delete this?')){
+                window.location.href='php/edit.php?id='+id;
+            }
+        }
+    </script>
 </body>
 </html>
