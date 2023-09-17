@@ -184,7 +184,7 @@ $obj = (object)$_POST;
                                     <td>".$row->priority."</td>
                                     <td><B>".number_format($row->total)."</B></td>
                                     <td align='center' ><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
-                                    <td align='center' ><a onclick='sure($row->id)'><img class='icn' src='images/delete.png'></a></td>
+                                    <td align='center' ><a onclick=\"sure('$row->id', '$row->name', '$row->total' ) \"><img class='icn' src='images/delete.png'></a></td>
                                 </tr>";
                             $i++;
                             $total += $row->total;
@@ -272,8 +272,8 @@ $obj = (object)$_POST;
     <!-- END of Add Product Modal -->
 
     <script>
-        function sure(id){
-            if(confirm('are you sure you want to delete this?')){
+        function sure(id, name, price){
+            if(confirm('are you sure you want to delete '+name+' priced at Ksh.'+price+'? This action is irreversible.')){
                 window.location.href='php/delete.php?id='+id;
             }
         }
