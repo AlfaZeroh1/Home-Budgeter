@@ -4,7 +4,7 @@ include "DB.php";
 $obj = (object)$_POST;
 $ob = (object)$_GET;
 
-if(isset($obj->action) && $obj->action=="edit product" && !empty($obj->name) && !empty($obj->name) && !empty($obj->quantity) && !empty($obj->type) && !empty($obj->unit_price) && !empty($obj->room) && !empty($obj->phase) && !empty($obj->priority) ){
+if(isset($obj->action) && $obj->action=="edit product" && !empty($obj->name) && !empty($obj->quantity) && !empty($obj->type) && !empty($obj->unit_price) && !empty($obj->room) && !empty($obj->phase) && !empty($obj->priority) ){
     $query = "UPDATE products SET 
                         name='$obj->name',
                         type='$obj->type',
@@ -21,7 +21,10 @@ if(isset($obj->action) && $obj->action=="edit product" && !empty($obj->name) && 
     }else{
         echo "<script>alert('Error! Failed to edit Product')</script>";
     }
-}   
+}
+else{
+    echo "<script>alert('Error! Name, quantity, type,unit price, room, phase and priority must be filled')</script>";
+}
 
 ?>
 <!DOCTYPE html>

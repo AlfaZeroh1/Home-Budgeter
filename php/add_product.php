@@ -3,7 +3,7 @@ include "DB.php";
 
 $obj = (object)$_POST;
 
-if(isset($obj->action) && $obj->action=="add product" && !empty($obj->name) && !empty($obj->name) && !empty($obj->quantity) && !empty($obj->type) && !empty($obj->unit_price) && !empty($obj->room) && !empty($obj->phase) && !empty($obj->priority) ){
+if(isset($obj->action) && $obj->action=="add product" && !empty($obj->name) && !empty($obj->quantity) && !empty($obj->type) && !empty($obj->unit_price) && !empty($obj->room) && !empty($obj->phase) && !empty($obj->priority) ){
     $query = "INSERT INTO products(name,type,quantity,unit_price,room,priority,phase,remarks) VALUES('$obj->name','$obj->type','$obj->quantity','$obj->unit_price','$obj->room','$obj->priority','$obj->phase','$obj->remarks')";
     if($connection->query($query)){
         // echo "<script>alert('Success! Product added');window.location.href='../index.php'</script>";
@@ -11,6 +11,9 @@ if(isset($obj->action) && $obj->action=="add product" && !empty($obj->name) && !
     }else{
         echo "<script>alert('Error! Failed to add Product')</script>";
     }
+}
+else{
+    echo "<script>alert('Error! Name, quantity, type,unit price, room, phase and priority must be filled')</script>";
 }   
 
 ?>
