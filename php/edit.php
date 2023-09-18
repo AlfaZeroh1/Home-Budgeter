@@ -22,7 +22,7 @@ if(isset($obj->action) && $obj->action=="edit product" && !empty($obj->name) && 
         echo "<script>alert('Error! Failed to edit Product')</script>";
     }
 }
-else{
+elseif( isset($obj->action) ){
     echo "<script>alert('Error! Name, quantity, type,unit price, room, phase and priority must be filled')</script>";
 }
 
