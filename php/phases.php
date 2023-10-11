@@ -26,6 +26,8 @@
             /* display: grid; */
             display: flex;
             justify-content: space-evenly;
+            width:90%;
+            border: 1px solid black ;
             /* flex-direction: column; */
         }
         .phase table{
