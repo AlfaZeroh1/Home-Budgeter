@@ -34,7 +34,7 @@
             /* flex-direction: column; */
         }
         .phase table{
-            width: 6%;
+            width: 3%;
         }
         .toggleable {
             display: none;
@@ -49,7 +49,7 @@
         }
 
         .table td {
-            width: 50%; /* Adjust this value as needed */
+            width: 25%; /* Adjust this value as needed */
         }
     </style>
 </head>
