@@ -21,12 +21,15 @@
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
     <!--  End of Data tables-->
 
-    <style>
+    <style> 
+        body{
+            overflow:scroll;
+        }
         .cont{
             /* display: grid; */
             display: flex;
             justify-content: space-evenly;
-            width:90%;
+            width:110%;
             border: 1px solid black ;
             /* flex-direction: column; */
         }
