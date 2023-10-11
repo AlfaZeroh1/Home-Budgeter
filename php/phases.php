@@ -31,7 +31,7 @@
             /* flex-direction: column; */
         }
         .phase table{
-            width: 10%;
+            max-width: 10%;
         }
         .toggleable {
             display: none;
