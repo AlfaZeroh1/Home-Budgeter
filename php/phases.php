@@ -24,6 +24,8 @@
     <style> 
         body{
             overflow:scroll;
+            margin : 0;             
+            padding  : 0; 
         }
         .cont{
             /* display: grid; */
