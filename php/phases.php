@@ -31,6 +31,7 @@
             justify-content: space-evenly;
             width:110%;
             border: 1px solid black ;
+            margin -left:10%;
             /* flex-direction: column; */
         }
         .phase table{
