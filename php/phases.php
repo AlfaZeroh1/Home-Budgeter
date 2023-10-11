@@ -70,7 +70,7 @@
 
                         <?php
                         // Get the type
-                        $types_query = "SELECT DISTINCT type from products WHERE phase = '$phase->phase' ORDER BY type";
+                        $types_query = "SELECT DISTINCT type from products WHERE phase = '$phase->phase' and status=0 ORDER BY type";
                         $types_stmt = $connection->query($types_query);
                         $types_results = $types_stmt->fetchAll(PDO::FETCH_OBJ);
                         foreach($types_results as $type){
