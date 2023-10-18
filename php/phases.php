@@ -31,7 +31,7 @@
             /* display: grid; */
             display: flex;
             justify-content: space-evenly;
-            width:110%;
+            width:100%;
             border: 1px solid black ;
             margin -left:10%;
             /* flex-direction: column; */

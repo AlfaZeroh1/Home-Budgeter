@@ -109,7 +109,7 @@ $obj = (object)$_POST;
         </form>
 
         <div class="divtable">
-            <table class="table table-bordered" id="main_table">
+            <table class="table table-bordered table-hover" id="main_table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -123,6 +123,7 @@ $obj = (object)$_POST;
                         <th>Ttl Price</th>
                         <th>Action</th>
                         <th>Action</th>
+                        <th>Purchased?</th>
                     </tr>
                 </thead>
 
@@ -164,7 +165,7 @@ $obj = (object)$_POST;
                             if(isset($obj->selected_priority)){ $where .= " AND priority = '$obj->selected_priority' ";}
                             if(isset($obj->selected_type)){ $where .= " AND type = '$obj->selected_type' ";}
                         }
-                        $query = "SELECT id,name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total FROM products $where";
+                        $query = "SELECT id,name,quantity,unit_price,type,room,phase,priority,(quantity*unit_price)as total,status FROM products $where";
 
                         $stmt = $connection->query($query);
                         $results = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -172,6 +173,8 @@ $obj = (object)$_POST;
                         //  you can use a loop condition like so
                         $i=1;
                         foreach ($results as $row) {
+                            $color = $row->status==1?'success':'dark';
+                            $status = $row->status==1?'Already Purchased':'Not Yet';
                             echo
                                 "<tr>
                                     <td>$i</td>
@@ -185,6 +188,7 @@ $obj = (object)$_POST;
                                     <td><B>".number_format($row->total)."</B></td>
                                     <td align='center' ><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
                                     <td align='center' ><a onclick=\"sure('$row->id', '$row->name', '$row->total' ) \"><img class='icn' src='images/delete.png'></a></td>
+                                    <td align='center' > <button class='btn btn-outline-$color' onclick=\"purchased('$row->id', '$row->status', this)\" >$status</button> </td>
                                 </tr>";
                             $i++;
                             $total += $row->total;
@@ -206,6 +210,7 @@ $obj = (object)$_POST;
                         <th></th>
                         <th></th>
                         <th><?php echo number_format($total);?></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -276,6 +281,25 @@ $obj = (object)$_POST;
             if(confirm('are you sure you want to delete '+name+' priced at Ksh.'+price+'? This action is irreversible.')){
                 window.location.href='php/delete.php?id='+id;
             }
+        }
+
+        function purchased(id,status, elm){
+            // alert('id is '+id+' and status is '+status)
+            // toggle status
+            status = status==1?0:1
+            let params = {
+                status:status,
+                id:id
+            }
+            $.post('php/purchased.php', params, function(response){
+
+                let txt = status==1? 'Purchased' : 'Not Yet'
+                let prev_class = status==1? 'btn-outline-dark' : 'btn-danger'
+                let new_class = status==1? 'btn-danger' : 'btn-outline-dark'
+                elm.classList.remove(prev_class)
+                elm.classList.add(new_class)
+                elm.innerHTML = txt;
+            })
         }
     </script>
 </body>
