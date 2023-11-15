@@ -30,7 +30,7 @@ $obj = (object)$_POST;
 <body>
     <div id="snackbar">Hey there</div> 
     <h1>Products</h1>
-    <div class="cont">
+    <div class="cont cont_r">
         <form action="" method="post">
             <div class="topbar">
                 <div class="tb_item">

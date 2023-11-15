@@ -84,7 +84,7 @@
                 <div class="phase">
                     <table class='table table-striped table-hover table-bordered'>
                         <tr>
-                            <td colspan='2' style="background:#999">Phase <?php echo $phase->phase; ?> </td>
+                            <td colspan='3' style="background:#999">Phase <?php echo $phase->phase; ?> </td>
                         </tr>
 
                         <?php
@@ -104,12 +104,12 @@
                             $type_total = $type_total_results[0]->total;
                             // Add this info to Table
                             echo "<tr class='trigger' onclick='deezplay(this)' >";
-                                echo "<td style='font-size:0.9rem' >$type->type</td>";
+                                echo "<td colspan='2' style='font-size:0.9rem' >$type->type</td>";
                                 echo "<td>$type_total</td>";
                             echo "</tr>";
                             // Get the products
                             echo "<tr class='toggleable' >";
-                                echo "<td colspan='2' >";
+                                echo "<td colspan='3' >";
                                     $products_query = "SELECT name, quantity*unit_price as price from products WHERE status='0' AND phase = '$phase->phase' AND type='$type->type' ";
                                     $products_stmt = $connection->query($products_query);
                                     $products_results = $products_stmt->fetchAll(PDO::FETCH_OBJ);
@@ -118,7 +118,7 @@
                                         //create another table for displaying the prices
                                         echo "<table class='table table-info table-bordered'>";
                                             echo "<tr>";
-                                                echo "<td>$product->name</td>";
+                                                echo "<td colspan='2'>$product->name</td>";
                                                 echo "<td>$product->price</td>";
                                             echo "</tr>";
                                         echo "</table>";
@@ -131,14 +131,14 @@
                             echo
                             "
                                 <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
+                                    <td colspan='2'>-</td>
+                                    <td>-</td>
                                 </tr>
                             ";
                         }
                         ?>
                         <tr>
-                            <th>Total</th>
+                            <th colspan='2'>Total</th>
                             <th><?php echo $phase_total; ?></th>
                         </tr>
                     </table>
