@@ -56,9 +56,6 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a name="" id="" class="btn btn-primary" href="../" role="button">Home</a>
-    </nav>
     <h1>Phases</h1>
     <div class="cont">
         <?php

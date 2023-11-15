@@ -28,6 +28,7 @@ $obj = (object)$_POST;
     
 </head>
 <body>
+    <div id="snackbar">Hey there</div> 
     <h1>Products</h1>
     <div class="cont">
         <form action="" method="post">
@@ -183,7 +184,7 @@ $obj = (object)$_POST;
                                     <td>$row->unit_price</td>
                                     <td>$row->type</td>
                                     <td>$row->room</td>
-                                    <td>".$row->phase."</td>
+                                    <td><input type='number' value='".$row->phase."' onchange=\"if( confirm('are you sure you want to change the Phase for $row->name? ') ){ change_phase('$row->id',this.value, '$row->name') }\"</td>
                                     <td>".$row->priority."</td>
                                     <td><B>".number_format($row->total)."</B></td>
                                     <td align='center' ><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
@@ -275,8 +276,41 @@ $obj = (object)$_POST;
             </div>
         </div>
     <!-- END of Add Product Modal -->
+    <iframe id="phasesIframe" src="php/phases_iframe.php" width="100%" height="700"></iframe>
 
     <script>
+        function refresh_iframe(){
+            $("#phasesIframe").attr("src", "php/phases_iframe.php");
+        }
+        function toast(msg){
+            $("#snackbar").text(msg)
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+        }
+        function change_phase(id, phase, name){
+            // alert('product id is '+id+' and new phase is '+phase)
+            let params = {
+                id : id,
+                phase: phase,
+                name: name
+            }
+            $.post(
+                'php/change_phase_ajax.php',
+                params,
+                function(response){
+                    let obj_response = JSON.parse(response)
+                    toast(obj_response.msg)
+                    console.log(obj_response.msg)
+                    refresh_iframe()
+                }
+            )
+        }
         function sure(id, name, price){
             if(confirm('are you sure you want to delete '+name+' priced at Ksh.'+price+'? This action is irreversible.')){
                 window.location.href='php/delete.php?id='+id;
@@ -299,6 +333,7 @@ $obj = (object)$_POST;
                 elm.classList.remove(prev_class)
                 elm.classList.add(new_class)
                 elm.innerHTML = txt;
+                refresh_iframe()
             })
         }
     </script>
