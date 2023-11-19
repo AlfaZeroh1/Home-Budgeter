@@ -6,12 +6,13 @@ $response = [];
 
 $response['status']=501;
 $response['msg']="Did not Execute command";
-if(isset($obj->id) && isset($obj->phase) && $obj->phase>0){
-    $query = "UPDATE products SET phase='$obj->phase', priority='$obj->phase' WHERE id='$obj->id' ";
+if(isset($obj->id) && isset($obj->unit_price) && $obj->unit_price>0){
+    $query = "UPDATE products SET unit_price='$obj->unit_price' WHERE id='$obj->id' ";
     if($connection->query($query)){
         // echo "<script>alert('Success! Product added');window.location.href='../index.php'</script>";
         $response['status']=200;
-        $response['msg']="$obj->name moved to phase $obj->phase";
+        $obj->unit_price = number_format($obj->unit_price);
+        $response['msg']="$obj->name Unit Price updated to Ksh.$obj->unit_price";
     }
     else{
         $response['status']=500;

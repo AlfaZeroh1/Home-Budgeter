@@ -180,8 +180,8 @@ $obj = (object)$_POST;
                                 "<tr>
                                     <td>$i</td>
                                     <td>$row->name</td>
-                                    <td>$row->quantity</td>
-                                    <td>$row->unit_price</td>
+                                    <td><input type='number' value='".$row->quantity."' onchange=\"if( confirm('are you sure you want to change the quantity for $row->name? ') ){ change_quantity('$row->id',this.value, '$row->name') }\"</td>
+                                    <td><input type='number' value='".$row->unit_price."' onchange=\"if( confirm('are you sure you want to change the unit_price for $row->name? ') ){ change_unit_price('$row->id',this.value, '$row->name') }\"</td>
                                     <td>$row->type</td>
                                     <td>$row->room</td>
                                     <td><input type='number' value='".$row->phase."' onchange=\"if( confirm('are you sure you want to change the Phase for $row->name? ') ){ change_phase('$row->id',this.value, '$row->name') }\"</td>
@@ -302,6 +302,42 @@ $obj = (object)$_POST;
             }
             $.post(
                 'php/change_phase_ajax.php',
+                params,
+                function(response){
+                    let obj_response = JSON.parse(response)
+                    toast(obj_response.msg)
+                    console.log(obj_response.msg)
+                    refresh_iframe()
+                }
+            )
+        }
+        function change_quantity(id, quantity, name){
+            // alert('product id is '+id+' and new phase is '+phase)
+            let params = {
+                id : id,
+                quantity: quantity,
+                name: name
+            }
+            $.post(
+                'php/change_quantity_ajax.php',
+                params,
+                function(response){
+                    let obj_response = JSON.parse(response)
+                    toast(obj_response.msg)
+                    console.log(obj_response.msg)
+                    refresh_iframe()
+                }
+            )
+        }
+        function change_unit_price(id, phase, name){
+            // alert('product id is '+id+' and new phase is '+phase)
+            let params = {
+                id : id,
+                unit_price: unit_price,
+                name: name
+            }
+            $.post(
+                'php/change_unit_price_ajax.php',
                 params,
                 function(response){
                     let obj_response = JSON.parse(response)
