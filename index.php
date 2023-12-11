@@ -125,6 +125,7 @@ $obj = (object)$_POST;
                         <th>Action</th>
                         <th>Action</th>
                         <th>Purchased?</th>
+                        <th>&nbsp;</th>
                     </tr>
                 </thead>
 
@@ -179,17 +180,19 @@ $obj = (object)$_POST;
                             echo
                                 "<tr>
                                     <td>$i</td>
-                                    <td>$row->name</td>
-                                    <td><input type='number' value='".$row->quantity."' onchange=\"if( confirm('are you sure you want to change the quantity for $row->name? ') ){ change_quantity('$row->id',this.value, '$row->name') }\"</td>
-                                    <td><input type='number' value='".$row->unit_price."' onchange=\"if( confirm('are you sure you want to change the unit_price for $row->name? ') ){ change_unit_price('$row->id',this.value, '$row->name') }\"</td>
-                                    <td>$row->type</td>
+                                    <td><input type='text' value='".$row->name."' onchange=\"if( confirm('are you sure you want to change the name for $row->name? ') ){ change_name('$row->id',this.value, '$row->name') }\"</td>
+                                    <td><input class='num_short' type='number' value='".$row->quantity."' onchange=\"if( confirm('are you sure you want to change the quantity for $row->name? ') ){ change_quantity('$row->id',this.value, '$row->name') }\"</td>
+                                    <td><input class='num_short' type='number' value='".$row->unit_price."' onchange=\"if( confirm('are you sure you want to change the unit_price for $row->name? ') ){ change_unit_price('$row->id',this.value, '$row->name') }\"</td>
+                                    <td><input class='num_short' type='text' value='".$row->type."' onchange=\"if( confirm('are you sure you want to change the type for $row->name? ') ){ change_type('$row->id',this.value, '$row->name') }\"</td>
                                     <td>$row->room</td>
-                                    <td><input type='number' value='".$row->phase."' onchange=\"if( confirm('are you sure you want to change the Phase for $row->name? ') ){ change_phase('$row->id',this.value, '$row->name') }\"</td>
+                                    <td><input class='num_short' type='number' value='".$row->phase."' onchange=\"if( confirm('are you sure you want to change the Phase for $row->name? ') ){ change_phase('$row->id',this.value, '$row->name') }\"</td>
                                     <td>".$row->priority."</td>
                                     <td><B>".number_format($row->total)."</B></td>
                                     <td align='center' ><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
                                     <td align='center' ><a onclick=\"sure('$row->id', '$row->name', '$row->total' ) \"><img class='icn' src='images/delete.png'></a></td>
                                     <td align='center' > <button class='btn btn-outline-$color' onclick=\"purchased('$row->id', '$row->status', this)\" >$status</button> </td>
+                                    <td>$row->name</td>
+
                                 </tr>";
                             $i++;
                             $total += $row->total;
@@ -211,6 +214,7 @@ $obj = (object)$_POST;
                         <th></th>
                         <th></th>
                         <th><?php echo number_format($total);?></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -311,6 +315,42 @@ $obj = (object)$_POST;
                 }
             )
         }
+        function change_name(id, name_change, name){
+            // alert('product id is '+id+' and new name is '+name_change)
+            let params = {
+                id : id,
+                name_change: name_change,
+                name: name
+            }
+            $.post(
+                'php/change_name_ajax.php',
+                params,
+                function(response){
+                    let obj_response = JSON.parse(response)
+                    toast(obj_response.msg)
+                    console.log(obj_response.msg)
+                    refresh_iframe()
+                }
+            )
+        }
+        function change_type(id, type, name){
+            // alert('product id is '+id+' and new type is '+type)
+            let params = {
+                id : id,
+                type: type,
+                name: name
+            }
+            $.post(
+                'php/change_type_ajax.php',
+                params,
+                function(response){
+                    let obj_response = JSON.parse(response)
+                    toast(obj_response.msg)
+                    console.log(obj_response.msg)
+                    refresh_iframe()
+                }
+            )
+        }
         function change_quantity(id, quantity, name){
             // alert('product id is '+id+' and new phase is '+phase)
             let params = {
@@ -329,7 +369,7 @@ $obj = (object)$_POST;
                 }
             )
         }
-        function change_unit_price(id, phase, name){
+        function change_unit_price(id, unit_price, name){
             // alert('product id is '+id+' and new phase is '+phase)
             let params = {
                 id : id,

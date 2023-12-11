@@ -20,7 +20,9 @@
     width: 20px !important;
     cursor: pointer;
 }
-
+.num_short{
+    width:80px !important;
+}
 
 /* Snackbar Code */
      /* The snackbar - position it at the bottom and in the middle of the screen */
