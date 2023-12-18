@@ -38,14 +38,31 @@ $obj = (object)$_POST;
                 </div>
 
                 <div class="tb_item">
-                    <select name="selected_phase" id="selected_phase">
-                        <option selected disabled>Choose a Phase</option>
+                    <select name="from_phase" id="from_phase">
+                        <option selected disabled>From Phase</option>
                         <?php
                             $query = "SELECT DISTINCT phase from products ORDER BY phase ASC";
                             $stmt = $connection->query($query);
                             $results = $stmt->fetchAll(PDO::FETCH_OBJ);
                             foreach($results as $row){
-                                $selected = $row->phase == $obj->selected_phase?'selected':'';
+                                $selected = $row->phase == $obj->from_phase?'selected':'';
+                                echo 
+                                " 
+                                    <option $selected value='$row->phase'>$row->phase</option>
+                                ";
+                            }
+                        ?>
+                    </select>
+                    <br>
+                    <br>
+                    <select name="to_phase" id="to_phase">
+                        <option selected disabled>To Phase</option>
+                        <?php
+                            $query = "SELECT DISTINCT phase from products ORDER BY phase ASC";
+                            $stmt = $connection->query($query);
+                            $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+                            foreach($results as $row){
+                                $selected = $row->phase == $obj->to_phase?'selected':'';
                                 echo 
                                 " 
                                     <option $selected value='$row->phase'>$row->phase</option>
@@ -163,7 +180,8 @@ $obj = (object)$_POST;
                         // Get all products
                         $where = ' where status=0 ';
                         if(isset($obj->action) && $obj->action="Filter"){
-                            if(isset($obj->selected_phase)){ $where .= " AND phase = '$obj->selected_phase' ";}
+                            if(isset($obj->from_phase)){ $where .= " AND phase >= '$obj->from_phase' ";}
+                            if(isset($obj->to_phase)){ $where .= " AND phase <= '$obj->to_phase' ";}
                             if(isset($obj->selected_priority)){ $where .= " AND priority = '$obj->selected_priority' ";}
                             if(isset($obj->selected_type)){ $where .= " AND type = '$obj->selected_type' ";}
                         }
