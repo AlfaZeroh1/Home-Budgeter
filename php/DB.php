@@ -3,7 +3,7 @@
 $server_name = "localhost";
 $mysql_user = "wise";
 $password = "wisedigits";
-$databases_we_are_using ="h";
+$databases_we_are_using ="hunters";
 
 try {
     $connection = new PDO("mysql:host=$server_name;dbname=$databases_we_are_using", $mysql_user, $password);

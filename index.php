@@ -21,6 +21,8 @@ $obj = (object)$_POST;
     <!--  Data tables-->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+        <!-- DataTables Buttons CSS -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
     <!--  End of Data tables-->
 
     <link rel="stylesheet" href="css/style.css">
@@ -29,7 +31,7 @@ $obj = (object)$_POST;
 </head>
 <body>
     <div id="snackbar">Hey there</div> 
-    <h1>Products</h1>
+    <h3>Products</h3>
     <div class="cont cont_r">
         <form action="" method="post">
             <div class="topbar">
@@ -53,8 +55,8 @@ $obj = (object)$_POST;
                             }
                         ?>
                     </select>
-                    <br>
-                    <br>
+                    &nbsp;
+                    &nbsp;
                     <select name="to_phase" id="to_phase">
                         <option selected disabled>To Phase</option>
                         <?php
@@ -127,7 +129,7 @@ $obj = (object)$_POST;
         </form>
 
         <div class="divtable">
-            <table class="table table-bordered table-hover" id="main_table">
+            <table class="table table-bordered table-hover table-dark" id="main_table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -208,7 +210,7 @@ $obj = (object)$_POST;
                                     <td><B>".number_format($row->total)."</B></td>
                                     <td align='center' ><a href='php/edit.php?id=$row->id'><img class='icn' src='images/edit.png'></a></td>
                                     <td align='center' ><a onclick=\"sure('$row->id', '$row->name', '$row->total' ) \"><img class='icn' src='images/delete.png'></a></td>
-                                    <td align='center' > <button class='btn btn-outline-$color' onclick=\"purchased('$row->id', '$row->status', this)\" >$status</button> </td>
+                                    <td align='center' > <button class='btn btn-sm btn-warning btn-outline-$color' onclick=\"purchased('$row->id', '$row->status', this)\" >$status</button> </td>
                                     <td>$row->name</td>
 
                                 </tr>";
@@ -431,5 +433,11 @@ $obj = (object)$_POST;
             })
         }
     </script>
+
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+
 </body>
 </html>

@@ -22,20 +22,25 @@
     <!--  End of Data tables-->
 
     <style> 
+        *{
+            color: white;
+            background: black;
+        }
         .cont{
             display: flex;
             /* justify-content: space-around; */
             min-width:100%;
             border: 1px solid black ;
-            padding:50px;
+            padding:20px;
             overflow-X:scroll;  
         }
         .phase{
-            padding:10px;
-            margin:20px;
+            padding:5px;
+            margin:10px;
         }
         .phase table{
             width: 150px;
+            font-size: 0.8rem
             
         }
         .toggleable {
@@ -56,7 +61,7 @@
     </style>
 </head>
 <body>
-    <h1>Phases</h1>
+    <!-- <h3>Phases</h3> -->
     <div class="cont">
         <?php
             // Get the cout of the phase with max distinct types
@@ -79,7 +84,7 @@
                 // we'll print the table
                 ?>
                 <div class="phase">
-                    <table class='table table-striped table-hover table-bordered'>
+                    <table class='table table-striped table-dark table-hover table-bordered'>
                         <tr>
                             <td colspan='3' style="background:#999">Phase <?php echo $phase->phase; ?> </td>
                         </tr>
@@ -101,7 +106,7 @@
                             $type_total = $type_total_results[0]->total;
                             // Add this info to Table
                             echo "<tr class='trigger' onclick='deezplay(this)' >";
-                                echo "<td colspan='2' style='font-size:0.9rem' >$type->type</td>";
+                                echo "<td colspan='2' style='font-size:0.8rem' >$type->type</td>";
                                 echo "<td>$type_total</td>";
                             echo "</tr>";
                             // Get the products
