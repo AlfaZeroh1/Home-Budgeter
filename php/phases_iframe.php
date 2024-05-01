@@ -1,5 +1,6 @@
 <?php
     include "DB.php";
+    $ob = (object)$_GET;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +77,7 @@
                 $max_row_results = $max_row_stmt->fetchAll(PDO::FETCH_OBJ);
                 $max_rows = $max_row_results[0]->max_type_count;
             // 
-            $phases_query = "SELECT DISTINCT phase from products ORDER BY phase";
+            $phases_query = (!empty($ob->from))&&(!empty($ob->to))?"SELECT DISTINCT phase from products WHERE phase BETWEEN $ob->from AND $ob->to ORDER BY phase": "SELECT DISTINCT phase from products ORDER BY phase";
             $phases_stmt = $connection->query($phases_query);
             $phases_results = $phases_stmt->fetchAll(PDO::FETCH_OBJ);
             foreach($phases_results as $phase){
