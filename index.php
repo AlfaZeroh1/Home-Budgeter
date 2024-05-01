@@ -300,7 +300,7 @@ $obj = (object)$_POST;
             </div>
         </div>
     <!-- END of Add Product Modal -->
-    <iframe id="phasesIframe" src="php/phases_iframe.php?from=<?php echo $obj->from_phase; ?>&to=<?php echo $obj->to_phase; ?>" width="100%" height="700"></iframe>
+    <iframe id="phasesIframe" src="php/phases_iframe.php?from=<?php echo isset($obj->from_phase)?$obj->from_phase:0; ?>&to=<?php echo isset($obj->to_phase)?$obj->to_phase:0; ?>" width="100%" height="700"></iframe>
 
     <script>
         function refresh_iframe(){
