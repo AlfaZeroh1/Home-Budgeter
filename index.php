@@ -46,6 +46,7 @@ $obj = (object)$_POST;
                             $query = "SELECT DISTINCT phase from products ORDER BY phase ASC";
                             $stmt = $connection->query($query);
                             $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+                            if(!isset($obj->from_phase)){$obj->from_phase=1;}
                             foreach($results as $row){
                                 $selected = $row->phase == $obj->from_phase?'selected':'';
                                 echo 
