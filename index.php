@@ -122,8 +122,16 @@ $obj = (object)$_POST;
                     <div onclick=" window.location.href='index.php' " class="btn btn-danger" >Clear Filters</div>
                 </div>
 
-                <div class="tb_item">
+                <!-- <div class="tb_item">
                     <a name="" id="" class="btn btn-warning" href="php/phases.php" role="button">Phases</a>
+                </div> -->
+
+                <div class="tb_item">
+                    <div onclick=" window.location.href='php/dump_db.php' " class="btn btn-success" >Dump</div>
+                </div>
+
+                <div class="tb_item">
+                    <div onclick=" window.location.href='php/restore_db.php' " class="btn btn-danger" >Source</div>
                 </div>
                 
             </div>
