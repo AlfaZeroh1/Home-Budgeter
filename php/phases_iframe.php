@@ -66,13 +66,14 @@
     <div class="cont">
         <?php
             // Get the cout of the phase with max distinct types
-                $max_row_query = "SELECT phase, MAX(type_count) AS max_type_count
-                    FROM (
-                        SELECT phase, COUNT(DISTINCT type) AS type_count
-                        FROM products
-                        GROUP BY phase
-                    ) AS phase_type_counts
-                ";
+            $max_row_query = "SELECT phase, MAX(type_count) AS max_type_count
+                FROM (
+                    SELECT phase, COUNT(DISTINCT type) AS type_count
+                    FROM products
+                    GROUP BY phase
+                ) AS phase_type_counts
+                GROUP BY phase
+            ";
                 $max_row_stmt = $connection->query($max_row_query);
                 $max_row_results = $max_row_stmt->fetchAll(PDO::FETCH_OBJ);
                 $max_rows = $max_row_results[0]->max_type_count;
