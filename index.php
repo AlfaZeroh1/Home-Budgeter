@@ -127,7 +127,7 @@ $obj = (object)$_POST;
                 </div> -->
 
                 <div class="tb_item">
-                    <div onclick=" window.location.href='php/dump_db.php' " class="btn btn-success" >Dump</div>
+                    <div onclick=" window.location.href='php/products_query.php' " class="btn btn-success" >Dump</div>
                 </div>
 
                 <div class="tb_item">
